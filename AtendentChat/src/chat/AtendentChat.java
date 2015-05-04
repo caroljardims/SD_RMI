@@ -10,6 +10,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Date;
 
 /**
  *
@@ -40,10 +41,8 @@ public class AtendentChat extends UnicastRemoteObject implements IChat {
     @Override
     public void deliver(Message msg) throws RemoteException {
         this.m = msg;
-        this.toRead.setText(this.toRead.getText()+
-                "\n"+ this.m.getDate().DAY_OF_MONTH+"/"+ this.m.getDate().MONTH +" - "+
-                this.m.getDate().HOUR_OF_DAY+":"+this.m.getDate().MINUTE+":"+this.m.getDate().SECOND+
-                " | Cliente > "+this.m.getMessage());
+        Date date = m.getDate().getTime();
+        this.toRead.setText(this.toRead.getText()+"\n"+date+" | Cliente > "+m.getMessage());
     }
     
     public void sendMessage (Message msg) throws RemoteException {

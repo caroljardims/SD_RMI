@@ -7,6 +7,7 @@ package chat;
 
 import java.rmi.RemoteException;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -103,9 +104,8 @@ public class ChatGUI extends JFrame  {
     private void enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarActionPerformed
         this.m.setMessage(this.toSend.getText());
         this.m.setDate(Calendar.getInstance());
-        setToRead(m.getDate().DAY_OF_MONTH+"/"+m.getDate().MONTH+" - "+
-                m.getDate().HOUR_OF_DAY+":"+m.getDate().MINUTE+":"+m.getDate().SECOND+
-                " | Cliente > "+m.getMessage());
+        Date date = m.getDate().getTime();
+        setToRead(date+" | Cliente > "+m.getMessage());
         try {
             this.cliente.sendMessage(m);
         } catch (RemoteException ex) {
