@@ -17,15 +17,14 @@ public class ClientChat extends UnicastRemoteObject implements IChat {
             Registry registry = LocateRegistry.getRegistry("localhost", 1099);
             IServer stub = (IServer) registry.lookup("Server");
             stub.requestAtendent(this);
-            System.out.println("Atendente Recebido!");
+            System.out.println("Atendente Recebido! "+stub.toString());
         } catch (NotBoundException | RemoteException e) {
             System.err.println("Client exception: " + e.toString());
         }
     }
-    
+
     @Override
     public void deliver(Message msg) throws RemoteException {
-        
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }

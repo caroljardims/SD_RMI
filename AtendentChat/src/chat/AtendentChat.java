@@ -17,13 +17,14 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class AtendentChat extends UnicastRemoteObject implements IChat {
     
+    public Message m = new Message();
     public AtendentChat() throws RemoteException {
         
         try {
             Registry registry = LocateRegistry.getRegistry("localhost", 1099);
             IServer stub = (IServer) registry.lookup("Server");
             stub.requestJoin(this);
-            System.out.println("Conectou com o servidor!");
+            System.out.println("Conectou com o servidor!"); 
         } catch (NotBoundException | RemoteException e) {
             System.err.println("Client exception: " + e.toString());
         }
@@ -31,7 +32,7 @@ public class AtendentChat extends UnicastRemoteObject implements IChat {
     
     @Override
     public void deliver(Message msg) throws RemoteException {
-        
+        this.m = msg;
     }
     
 }

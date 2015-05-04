@@ -6,6 +6,7 @@
 package chat;
 
 import java.rmi.RemoteException;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -98,7 +99,15 @@ public class ChatGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarActionPerformed
-        // TODO add your handling code here:
+        setToRead("| Atendente >"+this.toSend.getText());
+        this.atendente.m.setMessage(getToSend());
+        this.atendente.m.setDate(Calendar.getInstance());
+        try {
+            this.atendente.deliver(this.atendente.m);
+        } catch (RemoteException ex) {
+            Logger.getLogger(ChatGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.toSend.setText("");
     }//GEN-LAST:event_enviarActionPerformed
 
     private void fecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharActionPerformed
@@ -154,6 +163,15 @@ public class ChatGUI extends javax.swing.JFrame {
                 }
             }
         });
+    }
+    
+    public String getToSend(){
+        
+        return this.toSend.getText();
+    }
+    
+    public void setToRead(String m){
+        this.toRead.setText(this.toRead.getText()+"\n"+m);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
