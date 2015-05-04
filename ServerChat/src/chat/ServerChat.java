@@ -13,6 +13,8 @@ import java.rmi.server.RemoteServer;
 import java.rmi.server.ServerNotActiveException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -28,10 +30,15 @@ public class ServerChat extends UnicastRemoteObject implements IServer {
     @SuppressWarnings("empty-statement")
     public synchronized IChat requestAtendent(IChat chat_client) throws RemoteException {
         System.out.println("Requisicao de Atendente Recebida");
-        if(this.freeAtendent.isEmpty()){
-            System.out.println("Nenhum Atendente Disponível");
+        if (this.freeAtendent.isEmpty()) System.out.println("Nenhum Atendente Disponível");
+        while(this.freeAtendent.isEmpty()){
+            System.out.println("Aguardando Atendente...");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ServerChat.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        while(this.freeAtendent.isEmpty());
         System.out.println("Atendente Disponível");
         IChat atendent = this.freeAtendent.get(0);
         this.busyAtendent.add(atendent);

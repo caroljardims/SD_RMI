@@ -17,11 +17,11 @@ import javax.swing.JFrame;
  */
 public class ChatGUI extends JFrame  {
     
-    private IChat client;
+    private ClientChat client;
     private Message m = new Message();
 
     public ChatGUI() throws RemoteException {
-        this.client = (IChat) new ClientChat() ;
+        this.client = new ClientChat();
         initComponents();
     }
 
@@ -94,11 +94,11 @@ public class ChatGUI extends JFrame  {
     }// </editor-fold>//GEN-END:initComponents
 
     private void enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarActionPerformed
-        setToRead("| Cliente >"+this.toSend.getText());
         this.m.setMessage(this.toSend.getText());
         this.m.setDate(Calendar.getInstance());
+        setToRead(m.getDate().HOUR_OF_DAY+m.getDate().DAY_OF_MONTH+"| Cliente >"+m.getMessage());
         try {
-            this.client.deliver(m);
+            this.client.sendMessage(m);
         } catch (RemoteException ex) {
             Logger.getLogger(ChatGUI.class.getName()).log(Level.SEVERE, null, ex);
         }

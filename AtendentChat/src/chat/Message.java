@@ -5,17 +5,20 @@
  */
 package chat;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.Calendar;
 
 /**
  *
  * @author Felipe
  */
-public class Message implements IMessage {
+public class Message extends UnicastRemoteObject implements IMessage {
     private Calendar date;
     private String msg;
-
-   
+    
+    public Message() throws RemoteException {}
+    
     @Override
     public void setMessage(String msg) {
         this.msg = msg;

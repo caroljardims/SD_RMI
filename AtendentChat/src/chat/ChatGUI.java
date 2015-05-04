@@ -99,7 +99,7 @@ public class ChatGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarActionPerformed
-        setToRead("| Atendente >"+this.toSend.getText());
+        /*setToRead("| Atendente >"+this.toSend.getText());
         this.atendente.m.setMessage(getToSend());
         this.atendente.m.setDate(Calendar.getInstance());
         try {
@@ -107,7 +107,7 @@ public class ChatGUI extends javax.swing.JFrame {
         } catch (RemoteException ex) {
             Logger.getLogger(ChatGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.toSend.setText("");
+        this.toSend.setText("");*/
     }//GEN-LAST:event_enviarActionPerformed
 
     private void fecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharActionPerformed
