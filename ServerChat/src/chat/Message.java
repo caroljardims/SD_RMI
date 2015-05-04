@@ -5,13 +5,14 @@
  */
 package chat;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 /**
  *
  * @author Felipe
  */
-public class Message implements IMessage {
+public class Message implements IMessage, Serializable {
     private Calendar date;
     private String msg;
 

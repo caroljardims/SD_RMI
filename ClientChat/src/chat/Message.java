@@ -5,6 +5,7 @@
  */
 package chat;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Calendar;
@@ -13,11 +14,11 @@ import java.util.Calendar;
  *
  * @author Felipe
  */
-public class Message extends UnicastRemoteObject implements IMessage {
+public class Message /*extends UnicastRemoteObject*/ implements IMessage, Serializable {
     private Calendar date;
     private String msg;
     
-    public Message() throws RemoteException {}
+    //public Message() throws RemoteException {}
    
     @Override
     public void setMessage(String msg) {

@@ -16,10 +16,11 @@ import java.rmi.server.UnicastRemoteObject;
  * @author Felipe
  */
 public class AtendentChat extends UnicastRemoteObject implements IChat {
-    
     public Message m = new Message();
-    public AtendentChat() throws RemoteException {
-        
+    public IChat client;
+    private javax.swing.JTextArea toRead;
+    public AtendentChat(javax.swing.JTextArea toRead) throws RemoteException {
+        this.toRead = toRead;
         try {
             Registry registry = LocateRegistry.getRegistry("localhost", 1099);
             IServer stub = (IServer) registry.lookup("Server");
@@ -31,8 +32,21 @@ public class AtendentChat extends UnicastRemoteObject implements IChat {
     }
     
     @Override
-    public void deliver(Message msg) throws RemoteException {
-        this.m = msg;
+    public void setChat(IChat client){
+        this.client = client;
+        System.out.println("Recebido!");
     }
     
+    @Override
+    public void deliver(Message msg) throws RemoteException {
+        this.m = msg;
+        this.toRead.setText(this.toRead.getText()+
+                "\n"+ this.m.getDate().DAY_OF_MONTH+"/"+ this.m.getDate().MONTH +" - "+
+                this.m.getDate().HOUR_OF_DAY+":"+this.m.getDate().MINUTE+":"+this.m.getDate().SECOND+
+                " | Cliente > "+this.m.getMessage());
+    }
+    
+    public void sendMessage (Message msg) throws RemoteException {
+        this.client.deliver(msg);
+    }
 }

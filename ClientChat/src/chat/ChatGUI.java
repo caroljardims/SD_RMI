@@ -17,12 +17,12 @@ import javax.swing.JFrame;
  */
 public class ChatGUI extends JFrame  {
     
-    private ClientChat client;
+    private ClientChat cliente;
     private Message m = new Message();
 
     public ChatGUI() throws RemoteException {
-        this.client = new ClientChat();
         initComponents();
+        this.cliente = new ClientChat(toRead);
     }
 
     @SuppressWarnings("unchecked")
@@ -35,6 +35,7 @@ public class ChatGUI extends JFrame  {
         toSend = new javax.swing.JTextArea();
         fechar = new javax.swing.JButton();
         enviar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,6 +62,8 @@ public class ChatGUI extends JFrame  {
             }
         });
 
+        jLabel1.setText("Cliente");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -73,19 +76,23 @@ public class ChatGUI extends JFrame  {
                         .addComponent(fechar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 252, Short.MAX_VALUE)
                         .addComponent(enviar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(enviar, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                    .addComponent(enviar, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
                     .addComponent(fechar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -96,9 +103,11 @@ public class ChatGUI extends JFrame  {
     private void enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarActionPerformed
         this.m.setMessage(this.toSend.getText());
         this.m.setDate(Calendar.getInstance());
-        setToRead(m.getDate().HOUR_OF_DAY+m.getDate().DAY_OF_MONTH+"| Cliente >"+m.getMessage());
+        setToRead(m.getDate().DAY_OF_MONTH+"/"+m.getDate().MONTH+" - "+
+                m.getDate().HOUR_OF_DAY+":"+m.getDate().MINUTE+":"+m.getDate().SECOND+
+                " | Cliente > "+m.getMessage());
         try {
-            this.client.sendMessage(m);
+            this.cliente.sendMessage(m);
         } catch (RemoteException ex) {
             Logger.getLogger(ChatGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -106,7 +115,7 @@ public class ChatGUI extends JFrame  {
     }//GEN-LAST:event_enviarActionPerformed
 
     private void fecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharActionPerformed
-        this.dispose();
+        System.exit(WIDTH);
     }//GEN-LAST:event_fecharActionPerformed
     
     public static void main(String args[])  {
@@ -134,6 +143,7 @@ public class ChatGUI extends JFrame  {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton enviar;
     private javax.swing.JButton fechar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea toRead;
