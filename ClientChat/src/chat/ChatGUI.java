@@ -115,6 +115,13 @@ public class ChatGUI extends JFrame  {
     }//GEN-LAST:event_enviarActionPerformed
 
     private void fecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharActionPerformed
+        this.m.setMessage("----- CONEXÃO ENCERRADA -----");
+        this.m.setDate(Calendar.getInstance());
+        try {
+            this.cliente.sendMessage(m);
+        } catch (RemoteException ex) {
+            Logger.getLogger(ChatGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.exit(WIDTH);
     }//GEN-LAST:event_fecharActionPerformed
     

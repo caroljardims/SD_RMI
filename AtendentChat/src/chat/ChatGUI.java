@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package chat;
 
 import java.rmi.RemoteException;
@@ -127,13 +122,26 @@ public class ChatGUI extends javax.swing.JFrame {
         try {
             if (JOptionPane.showConfirmDialog(null, "Deseja Continuar Atendendo?", "AVISO",
             JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                this.m.setMessage("----- CONEXÃO ENCERRADA -----");
+                this.m.setDate(Calendar.getInstance());
+                try {
+                    this.atendente.sendMessage(m);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(ChatGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 this.atendente.stub.freeAtendent(this.atendente);
                 enviar.setEnabled(false);
                 this.toRead.setText("Continuar Atendimento");
             } else {
                 this.atendente.stub.requestLeave(this.atendente);    
+                this.m.setMessage("----- CONEXÃO ENCERRADA -----");
+                this.m.setDate(Calendar.getInstance());
+                try {
+                    this.atendente.sendMessage(m);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(ChatGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 System.exit(WIDTH);
-                //this.atendente.
             }
         } catch (RemoteException ex) {
                 Logger.getLogger(ChatGUI.class.getName()).log(Level.SEVERE, null, ex);
