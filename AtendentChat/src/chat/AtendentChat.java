@@ -19,13 +19,17 @@ import java.util.Date;
 public class AtendentChat extends UnicastRemoteObject implements IChat {
     public Message m = new Message();
     public IChat client;
+    public IServer stub;
     private javax.swing.JTextArea toRead;
-    public AtendentChat(javax.swing.JTextArea toRead) throws RemoteException {
+    private javax.swing.JButton enviar;
+    
+    public AtendentChat(javax.swing.JTextArea toRead, javax.swing.JButton enviar) throws RemoteException {
         this.toRead = toRead;
+        this.enviar = enviar;
         try {
             Registry registry = LocateRegistry.getRegistry("localhost", 1099);
-            IServer stub = (IServer) registry.lookup("Server");
-            stub.requestJoin(this);
+            this.stub = (IServer) registry.lookup("Server");
+            this.stub.requestJoin(this);
             System.out.println("Conectou com o servidor!"); 
         } catch (NotBoundException | RemoteException e) {
             System.err.println("Client exception: " + e.toString());
@@ -34,8 +38,9 @@ public class AtendentChat extends UnicastRemoteObject implements IChat {
     
     @Override
     public void setChat(IChat client){
+        enviar.setEnabled(true);
         this.client = client;
-        System.out.println("Recebido!");
+        System.out.println("Cliente Recebido!");
     }
     
     @Override

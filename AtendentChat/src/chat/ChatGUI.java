@@ -25,7 +25,8 @@ public class ChatGUI extends javax.swing.JFrame {
      */
     public ChatGUI() throws RemoteException {
         initComponents();
-        this.atendente = new AtendentChat(toRead);
+        enviar.setEnabled(false); 
+        this.atendente = new AtendentChat(toRead, enviar);
     }
 
     /**
@@ -123,13 +124,20 @@ public class ChatGUI extends javax.swing.JFrame {
 
     private void fecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharActionPerformed
         // TODO add your handling code here:
-        if (JOptionPane.showConfirmDialog(null, "Deseja Continuar Atendendo?", "AVISO",
-        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            this.toRead.setText("Continuar Atendimento");
-        } else {
-            System.exit(WIDTH);
-            //this.atendente.
-        }
+        try {
+            if (JOptionPane.showConfirmDialog(null, "Deseja Continuar Atendendo?", "AVISO",
+            JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                this.atendente.stub.freeAtendent(this.atendente);
+                enviar.setEnabled(false);
+                this.toRead.setText("Continuar Atendimento");
+            } else {
+                this.atendente.stub.requestLeave(this.atendente);    
+                System.exit(WIDTH);
+                //this.atendente.
+            }
+        } catch (RemoteException ex) {
+                Logger.getLogger(ChatGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
         
     }//GEN-LAST:event_fecharActionPerformed
 

@@ -57,12 +57,17 @@ public class ServerChat extends UnicastRemoteObject implements IServer {
 
     @Override
     public void requestLeave(IChat chat_atendent) throws RemoteException {
-        
+        this.busyAtendent.remove(chat_atendent);
+        this.freeAtendent.remove(chat_atendent);
     }
 
     @Override
     public void freeAtendent(IChat chat_atendent) throws RemoteException {
-        
+        if (!this.busyAtendent.contains(chat_atendent)) {
+            return;
+        }
+        this.busyAtendent.remove(chat_atendent);
+        this.freeAtendent.add(chat_atendent);
     }
      
     public static void main(String args[]) throws AlreadyBoundException 
