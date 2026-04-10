@@ -116,10 +116,11 @@ java -cp build/classes chat.ClientChat
 ```
 O servidor precisa estar rodando na mesma máquina (localhost) na porta padrão RMI 1099.
 
-##Tecnologias
+## Tecnologias
 Java SE
 Java RMI (java.rmi)
 Swing (GUI)
 NetBeans IDE + Apache Ant
 Contexto
-Projeto desenvolvido em 2015 como trabalho prático da disciplina de Sistemas Distribuídos.
+
+### Projeto desenvolvido em 2015 como trabalho prático da disciplina de Sistemas Distribuídos.
