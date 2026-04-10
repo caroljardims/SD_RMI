@@ -1,5 +1,3 @@
-# SD_RMI — Chat Distribuído com Java RMI
-
 # SD_RMI — Distributed Chat with Java RMI
 
 > 🇧🇷 Versão em português abaixo
@@ -64,7 +62,7 @@ Swing (GUI)
 NetBeans IDE + Apache Ant
 
 
-# 🇧🇷
+# 🇧🇷 SD_RMI — Chat Distribuído com Java RMI
 Trabalho acadêmico da disciplina de **Sistemas Distribuídos**, implementando um sistema de chat entre cliente e atendente usando **Java RMI (Remote Method Invocation)**.
 
 ## Sobre o Projeto
